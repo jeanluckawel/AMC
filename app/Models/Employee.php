@@ -12,16 +12,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
-    //
-
     use HasUlids, SoftDeletes;
 
+    protected $primaryKey = 'ulid';
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     protected $fillable = [
+        'ulid',
         'matricule',
         'nom',
         'prenom',
         'post_nom',
         'situation_familiale',
+        'genre',
         'statut_vie',
         'date_naissance',
         'lieu_naissance',
@@ -31,19 +37,15 @@ class Employee extends Model
         'numero_cnss',
         'numero_piece_identite',
         'date_expiration_piece',
-        'nombre_enfants',
-        'nombre_personnes_charge',
         'department_id',
     ];
 
     protected $casts = [
         'situation_familiale' => MaritalStatus::class,
         'statut_vie' => LifeStatus::class,
-
         'date_naissance' => 'date',
         'date_expiration_piece' => 'date',
     ];
-
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
