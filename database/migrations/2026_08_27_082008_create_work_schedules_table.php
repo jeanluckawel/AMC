@@ -12,8 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('work_schedules', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->ulid();
+
+            $table->string('code', 50)->unique();
+            $table->string('name', 100);
+
+            $table->time('heure_debut')->nullable();
+            $table->time('heure_fin')->nullable();
+
+            $table->decimal('nombre_heures', 5, 2)->nullable();
+
+            $table->text('description')->nullable();
         });
     }
 

@@ -8,7 +8,8 @@ enum EmployeePosition: string
 
     case JUNIOR = 'junior';
     case SENIOR = 'senior';
-    case MANAGER = 'manager';
+    case EXECUTIF = 'executif';
+
 
 
     public function label(): string
@@ -16,7 +17,9 @@ enum EmployeePosition: string
         return match ($this) {
             self::JUNIOR => 'Junior',
             self::SENIOR => 'Senior',
-            self::MANAGER => 'Manager',
+            self::EXECUTIF => 'executif',
         };
     }
 }
+
+

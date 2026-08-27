@@ -12,7 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employee_emergency_contacts', function (Blueprint $table) {
-            $table->id();
+            $table->ulid();
+
+            $table->foreignUlid('employee_id')
+                ->constrained('employees')
+                ->cascadeOnDelete();
+
+            $table->string('nom', 100);
+            $table->string('prenom', 100);
+            $table->string('post_nom', 100)->nullable();
+
+            $table->string('telephone', 30);
+
+            $table->string('relation', 100)->nullable();
+
+            $table->string('address')->nullable();
+
+
             $table->timestamps();
         });
     }
