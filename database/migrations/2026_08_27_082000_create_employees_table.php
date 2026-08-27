@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
 
-            $table->ulid();
+            $table->ulid()->primary();
 
             $table->string('matricule', 50)->unique();
 
@@ -47,7 +47,7 @@ return new class extends Migration
             $table->string('numero_piece_identite', 100)->nullable();
             $table->date('date_expiration_piece')->nullable();
 
-            $table->foreignUlid('department_id')
+            $table->foreignId('department_id')
                 ->nullable()
                 ->constrained('departments')
                 ->nullOnDelete();
