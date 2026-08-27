@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class EmployeeAssignment extends Model
 {
     //
-
     protected $fillable = [
         'employee_id',
         'department_id',
@@ -61,9 +60,9 @@ class EmployeeAssignment extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function job(): BelongsTo
+    public function jobTitle(): BelongsTo
     {
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(JobTitle::class);
     }
 
     public function contractType(): BelongsTo

@@ -46,6 +46,42 @@ class Employee extends Model
         'date_naissance' => 'date',
         'date_expiration_piece' => 'date',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (Employee $employee) {
+            if (empty($employee->matricule)) {
+                $employee->matricule = self::generateMatricule();
+            }
+        });
+    }
+
+    public static function generateMatricule(): string
+    {
+        $prefix = 'AMC-OA';
+
+        $lastEmployee = static::withTrashed()
+            ->where('matricule', 'like', $prefix.'%')
+            ->orderByRaw(
+                'CAST(SUBSTRING(matricule, 7) AS UNSIGNED) DESC'
+            )
+            ->first();
+
+        $nextNumber = $lastEmployee
+            ? ((int) substr(
+                $lastEmployee->matricule,
+                strlen($prefix)
+            )) + 1
+            : 1;
+
+        return $prefix.str_pad(
+            $nextNumber,
+            3,
+            '0',
+            STR_PAD_LEFT
+        );
+    }
+
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
@@ -74,5 +110,15 @@ class Employee extends Model
     public function salaries(): HasMany
     {
         return $this->hasMany(EmployeeSalary::class);
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return '{$this->nom} {$this->prenom} {$this->post_nom}';
+    }
+
+    public function jobTitle(): BelongsTo
+    {
+        return $this->belongsTo(JobTitle::class);
     }
 }
