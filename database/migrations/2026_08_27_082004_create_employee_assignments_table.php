@@ -19,7 +19,6 @@ return new class extends Migration
         Schema::create('employee_assignments', function (Blueprint $table) {
             $table->ulid();
 
-            // Relations
             $table->foreignUlid('employee_id')
                 ->constrained('employees')
                 ->cascadeOnDelete();
@@ -44,45 +43,45 @@ return new class extends Migration
                 ->constrained('work_schedules')
                 ->nullOnDelete();
 
-            // Catégorie
+
             $table->enum(
                 'categorie',
                 array_column(EmployeeCategory::cases(), 'value')
             )->nullable();
 
-            // Niveau
+
             $table->enum(
                 'niveau',
                 array_column(EmployeeLevel::cases(), 'value')
             )->nullable();
 
-            // Grade
+
             $table->enum(
                 'grade',
                 array_column(EmployeeGrade::cases(), 'value')
             )->nullable();
 
-            // Échelon
+
             $table->string('echelon', 50)->nullable();
 
-            // Coefficient
+
             $table->decimal('coefficient', 10, 4)->nullable();
 
-            // Position
+
             $table->enum(
                 'position',
                 array_column(EmployeePosition::cases(), 'value')
             )->nullable();
 
-            // Dates
+
             $table->date('date_embauche')->nullable();
             $table->date('date_debut')->nullable();
             $table->date('date_fin')->nullable();
 
-            // Situation avant embauche
+
             $table->text('situation_avant_embauche')->nullable();
 
-            // Statut
+
             $table->enum(
                 'statut',
                 array_column(AssignmentStatus::cases(), 'value')
