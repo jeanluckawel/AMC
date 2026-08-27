@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             [
                 DepartmentSeeder::class,
                 EmployeeSeeder::class,
+                EmployeeChildSeeder::class,
+                EmployeeFamilySeeder::class,
             ]
         );
     }

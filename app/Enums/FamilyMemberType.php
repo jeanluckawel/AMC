@@ -4,7 +4,6 @@ namespace App\Enums;
 
 enum FamilyMemberType: string
 {
-    //
     case PERE = 'pere';
     case MERE = 'mere';
     case CONJOINT = 'conjoint';

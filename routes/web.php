@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Employee\Index;
+use App\Livewire\Employees\Show;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -11,6 +12,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/employees', Index::class)
         ->name('employees.index');
+
+    Route::get('/employees/{employee}', Show::class)
+        ->name('employees.show');
+
+
 });
 
 require __DIR__.'/settings.php';

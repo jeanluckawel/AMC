@@ -13,10 +13,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employee_children', function (Blueprint $table) {
-            $table->ulid();
+            $table->id();
+
 
             $table->foreignUlid('employee_id')
-                ->constrained('employees')
+                ->references('ulid')
+                ->on('employees')
                 ->cascadeOnDelete();
 
             $table->string('nom', 100);
@@ -24,6 +26,11 @@ return new class extends Migration
             $table->string('post_nom', 100)->nullable();
 
             $table->date('date_naissance')->nullable();
+
+            $table->enum(
+                'charge',
+                array_column(\App\Enums\Charge::cases(), 'value')
+            );
 
             $table->enum(
                 'statut_vie',

@@ -8,15 +8,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('employee_families', function (Blueprint $table) {
-            $table->ulid();
-            $table->foreignUlid('employee_id')
-                ->constrained('employees')
+
+            $table->id();
+
+            // employees.ulid est la PK de type ULID
+            $table->char('employee_id', 26);
+
+            $table->foreign('employee_id')
+                ->references('ulid')
+                ->on('employees')
                 ->cascadeOnDelete();
 
             $table->enum(
@@ -47,9 +50,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('employee_families');
